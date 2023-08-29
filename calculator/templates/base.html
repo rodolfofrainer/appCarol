@@ -15,8 +15,19 @@
   </head>
   <body>
     <nav class="navbar navbar-light bg-light">
+      <div class="container fluid">
+        <div class="d-flex flex-row bd-highlight mb-3">
         <a class="navbar-brand" href="{% url 'home'%}"><button type="button" class="btn btn-info">Home</button></a>
-        {% comment %} <a class="navbar-brand" href="{% url 'login'%}"><button type="button" class="btn btn-primary">Login</button></a> {% endcomment %}
+        </div>
+        <div class="d-flex flex-row-reverse bd-highlight">
+        {% if not is_user_authenticated %}
+        <a class="navbar-brand" href="{% url 'account_signup'%}"><button type="button" class="btn btn-primary">Register</button></a>
+        <a class="navbar-brand" href="{% url 'account_login'%}"><button type="button" class="btn btn-primary">Login</button></a>
+        {% else %}
+        <a class="navbar-brand" href="{% url 'account_logout'%}"><button type="button" class="btn btn-danger">Logout</button></a>
+        {% endif %}
+        <div>
+      </div>
     </nav>
     {% block content %}
     {% endblock %}
