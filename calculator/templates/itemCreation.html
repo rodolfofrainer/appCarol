@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Item</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+      integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand" href="home.html"><button type="button" class="btn btn-info">Home</button></a>
+    </nav>
+    <div class="container mt-5">
+        <label for="itemSearch"><h4><strong>Item Search:</strong></h4></label>
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="type item name here" aria-label="Item name to be searched on Item database" aria-describedby="button-addon4">
+            <div class="input-group-append" id="button-addon4">
+                <button class="btn btn-primary" type="button">Search</button>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-5">
+        <form>
+            <div class="form-group">
+              <label for="itemAdd"><h4><strong>Add a new item:</strong></h4></label>
+              <input type="text" class="form-control" id="itemAdd" placeholder="Item">
+            </div>
+            <div class="form-group">
+                <label for="marketDropdown">Select the Market:</label>
+                <select class="form-control" id="marketDropdown">
+                  <option>Aldi</option>
+                  <option>Nahkauf</option>
+                  <option>Kaufland</option>
+                </select>
+            </div>
+            <form>
+                <div class="form">
+                    <label for="priceInput">Price:</label>           
+                </div>
+            </form>            
+            <div class="input-group mb-3">                
+                <div class="input-group-prepend">
+                  <span class="input-group-text">€</span>                
+                </div>
+                <input type="float" class="form-control" placeholder="0.00" aria-label="Euro amount (with dot and two decimal places)">
+            </div>
+            <button type="submit" class="btn btn-primary">Add</button>
+          </form>
+    </div>
+    <div class="container mt-5">
+        <form>
+            <div class="form">
+                <label for="itemList"><h3><strong>Item list:</strong></h3></label>            
+            </div>
+        </form>
+        <table class="table">
+            <thead class="thead-dark">
+              <label for="itemListMarket"><strong>Market: Aldi</strong></label>
+              <tr>
+                <th scope="col">Item</th>
+                <th scope="col">Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Eggs</th>
+                <td>3.85</td>
+              </tr>
+              <tr>
+                <th scope="row">Oil</th>
+                <td>0.79</td>
+              </tr>
+              <tr>
+                <th scope="row">Kiwi</th>
+                <td>0.59</td>
+              </tr>
+            </tbody>
+          </table>
+          
+          <table class="table">
+            <thead class="thead-light">
+              <label for="itemListMarket"><strong>Market: Nahkauf</strong></label>
+              <tr>
+                <th scope="col">Item</th>
+                <th scope="col">Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Eggs</th>
+                <td>4.99</td>
+              </tr>
+              <tr>
+                <th scope="row">Oil</th>
+                <td>0.59</td>
+              </tr>
+              <tr>
+                <th scope="row">Kiwi</th>
+                <td>1.09</td>
+              </tr>
+            </tbody>
+          </table>
+          
+          <table class="table">
+            <thead class="thead-dark">
+              <label for="itemListMarket"><strong>Market: Kaufland</strong></label>
+              <tr>
+                <th scope="col">Item</th>
+                <th scope="col">Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Eggs</th>
+                <td>3.85</td>
+              </tr>
+              <tr>
+                <th scope="row">Oil</th>
+                <td>0.89</td>
+              </tr>
+              <tr>
+                <th scope="row">Kiwi</th>
+                <td>0.89</td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+    <script src="" async defer></script>
+  </body>
+</html>
