@@ -24,4 +24,4 @@ class ItemCreatedModel(models.Model):
     market_id = models.ForeignKey(MarketCreatedModel, on_delete=models.CASCADE)
     
     def __str__(self):
-        return f'{self.name} by {self.market_id}'
+        return f'{self.name}'
