@@ -26,7 +26,9 @@ def createItemPageView(request):
             return redirect('create_item')
     else:
         form = createNewItemForm(request.user, initial={'price': 0})
-    context = {'form': form}
+    
+    list_of_markets = MarketCreatedModel.objects.filter(user_id=request.user.id)
+    context = {'form': form, 'list_of_markets': list_of_markets}
     return render(request, 'itemCreation.html', context=context)
 
 def myWagePageView(request):
