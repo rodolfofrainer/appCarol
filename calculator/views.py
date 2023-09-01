@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib import messages
+from django.http import HttpResponseRedirect
 from .forms import createNewItemForm
-from .models import ItemCreatedModel
 
 # Create your views here.
 def baseView(request):
@@ -18,11 +18,11 @@ def createItemPageView(request):
     if request.method == 'POST':
         form = createNewItemForm(request.POST)
         if form.is_valid():
-            clean_form = form.clean()
-            print(clean_form)
+            item = form.save(commit=False)
+            print(item)
             createNewItemForm()
             messages.success(request, f'Item created!')
-            return render(request, 'itemCreation.html', context = context)
+            return HttpResponseRedirect('createItem')
     else:
         return render(request, 'itemCreation.html', context = context)
 
