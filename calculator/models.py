@@ -16,7 +16,7 @@ class MarketCreatedModel(models.Model):
     user_id = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
     
     def __str__(self):
-        return f'{self.name} from user {self.user_id}'
+        return f'{self.name.title()}'
 
 class ItemCreatedModel(models.Model):
     name = models.CharField(max_length=100, null=True)
