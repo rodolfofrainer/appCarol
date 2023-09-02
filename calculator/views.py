@@ -27,8 +27,8 @@ def createItemPageView(request):
             item.save()
             messages.success(request, f'Item created!')
             return redirect('create_item')
-    else:
-        form = createNewItemForm(request.user, initial={'price': 0})
+    
+    form = createNewItemForm(request.user, initial={'price': 0})
     
     list_of_markets = MarketCreatedModel.objects.filter(user_id=request.user.id)
     list_of_items = ItemCreatedModel.objects.filter(market_id=list_of_markets[0].id)
