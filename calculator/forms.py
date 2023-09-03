@@ -19,7 +19,7 @@ class createNewItemForm(forms.ModelForm):
         self.fields['price'].widget.attrs['min'] = 0
 
 
-class createNewMarketForm(forms.Form):
-    name = forms.CharField(label='Market Name')
-    distance = forms.DecimalField(label='Market Location')
-    favorite = forms.BooleanField(label='Favorite Market?')
+class CreateNewMarketForm(forms.ModelForm):
+    class Meta:
+        model = MarketCreatedModel
+        fields = ['name', 'distance', 'favorite']

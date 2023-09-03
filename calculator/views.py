@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views import View
-from .forms import createNewItemForm, createNewMarketForm
+from .forms import createNewItemForm, CreateNewMarketForm
 from .models import MarketCreatedModel, ItemCreatedModel
 
 # Create your views here.
@@ -16,17 +16,31 @@ def baseView(request):
 @method_decorator(login_required, name='dispatch')
 class MarketPageView(View):
     template_name = 'market.html'
-    form_class = createNewMarketForm
+    form_class = CreateNewMarketForm
 
     def get_context_data(self, **kwargs):
         context = {
-            'form': createNewMarketForm,
+            'form': self.form_class(),
         }
         return context
 
     def get(self, request, *args, **kwargs):
         context = self.get_context_data()
         return render(request, self.template_name, context=context)
+    
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            item = form.save(commit=False)
+            item.user_id = request.user
+            item.save()
+            messages.success(request, f'Market created successfully!')
+            print('Market created successfully!')
+            return redirect('market_page')
+        else:
+            context = self.get_context_data()
+            context['form'] = form
+            return render(request, self.template_name, context)
     
 
 
@@ -70,7 +84,7 @@ class CreateItemView(View):
             item = form.save(commit=False)
             item.user_id = request.user.id
             item.save()
-            messages.success(request, f'Item created!')
+            messages.success(request, f'Item created successfully!')
             return redirect('create_item')
         else:
             context = self.get_context_data()
