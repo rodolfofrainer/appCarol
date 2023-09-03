@@ -40,7 +40,7 @@
         <form>
             {% csrf_token %}
             <div class="form-row">
-                <div class="col">
+                <div class="col-md-9">
                     <select class="custom-select" id="inputGroupSelect01">
                         <option selected>Choose...</option>
                         <option value="1">One</option>
@@ -51,8 +51,11 @@
                 <div class="col-md-2 form-outline">
                   <input type="number" id="typeNumber" class="form-control" min='0' value='1'/>
                 </div>
-                <i class="fa-solid fa-xmark"></i>
-                <i class="fa-solid fa-user"></i>
+                <div class="col-md-1">
+                    <button class='btn' href="#">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button> 
+              </div>
             </div>
         </form>
       </div>
