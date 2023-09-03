@@ -25,7 +25,9 @@ class MarketPageView(View):
         return context
 
     def get(self, request, *args, **kwargs):
+        form = self.form_class(initial={'distance':0,'favorite': 0})
         context = self.get_context_data()
+        context['form'] = form
         return render(request, self.template_name, context=context)
     
     def post(self, request, *args, **kwargs):
