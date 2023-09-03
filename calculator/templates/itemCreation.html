@@ -3,13 +3,13 @@
 {% block title %}|Create a new item{% endblock title %}
 {% block content %}
     {% if messages %}
-    <div class='container'>
-        {% for message in messages %}
-        <div class='alert alert-{{ message.tags }} mt-2'>
-            {{ message }}
-        </div>
-        {% endfor %}
-    </ul>
+      <div class='container'>
+            {% for message in messages %}
+                <div class='alert alert-{{ message.tags }} mt-2'>
+                    {{ message }}
+                </div>
+            {% endfor %}
+      </div>
     {% endif %}
     <div class="container mt-5">
         <label for="itemSearch"><h4><strong>Item Search:</strong></h4></label>

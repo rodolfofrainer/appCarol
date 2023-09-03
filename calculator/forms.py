@@ -1,6 +1,7 @@
 from django import forms
 from .models import ItemCreatedModel, MarketCreatedModel
 
+
 class createNewItemForm(forms.ModelForm):
     class Meta:
         model = ItemCreatedModel
@@ -10,9 +11,15 @@ class createNewItemForm(forms.ModelForm):
             'price': 'Item Price',
             'market_id': 'Market',
         }
-        
-    
+
     def __init__(self, user, *args, **kwargs):
         super(createNewItemForm, self).__init__(*args, **kwargs)
-        self.fields['market_id'].queryset = MarketCreatedModel.objects.filter(user_id=user.id)
+        self.fields['market_id'].queryset = MarketCreatedModel.objects.filter(
+            user_id=user.id)
         self.fields['price'].widget.attrs['min'] = 0
+
+
+class createNewMarketForm(forms.Form):
+    name = forms.CharField(label='Market Name')
+    distance = forms.DecimalField(label='Market Location')
+    favorite = forms.BooleanField(label='Favorite Market?')

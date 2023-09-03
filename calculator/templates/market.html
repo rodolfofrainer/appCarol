@@ -1,45 +1,31 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Market</title>
-    <meta name="description" content="" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
-      integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
-      crossorigin="anonymous"
-    />
-  </head>
-  <body>
-    <nav class="navbar navbar-light bg-light">
-        <a class="navbar-brand" href="home.html"><button type="button" class="btn btn-info">Home</button></a>
-    </nav>
-    <div class="container mt-5">
-        <form>
-            <div class="form-group">
-              <label for="marketAdd"><h4><strong>Add a new market:</strong></h4></label>
-              <input type="text" class="form-control" id="marketAdd" placeholder="Market">
-            </div>
-            <form>
-                <div class="form">
-                    <label for="DistanceInput">Distance (min):</label>           
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}|Create a new market{% endblock title %}
+{% block content %}
+    {% if messages %}
+        <div class='container'>
+            {% for message in messages %}
+                <div class='alert alert-{{ message.tags }} mt-2'>
+                    {{ message }}
                 </div>
-            </form>            
-            <div class="input-group mb-3"> 
-                <input type="integer" class="form-control" placeholder="00" aria-label="Distance in minutes">
-            </div>
-            <button type="submit" class="btn btn-primary">Add</button>
-          </form>
+            {% endfor %}
+        </div>
+    {% endif %}
+    <div class="container mt-5">
+        <div class="form-group">
+            <label for="marketAdd"><h4><strong>Add a new market:</strong></h4></label>
+        </div>
+        <form>
+            {% csrf_token %}
+            {{form|crispy}}
+        </form>
     </div>
     <div class="container mt-5">
-        <form>
-            <div class="form">
+        <div class="row">
+            <div class="col">
                 <label for="itemList"><h3><strong>Market list:</strong></h3></label>            
             </div>
-        </form>
+        </div>
         <table class="table">
             <thead class="thead-dark">
               <tr>
@@ -67,6 +53,4 @@
             </tbody>
           </table>
     </div>
-    <script src="" async defer></script>
-  </body>
-</html>
+{% endblock content %}
