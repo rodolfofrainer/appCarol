@@ -22,6 +22,8 @@ class MarketPageView(View):
         context = {
             'form': self.form_class(),
         }
+        context['list_of_markets'] = MarketCreatedModel.objects.filter(
+                user_id=self.request.user.id)
         return context
 
     def get(self, request, *args, **kwargs):
@@ -37,7 +39,6 @@ class MarketPageView(View):
             item.user_id = request.user
             item.save()
             messages.success(request, f'Market created successfully!')
-            print('Market created successfully!')
             return redirect('market_page')
         else:
             context = self.get_context_data()
