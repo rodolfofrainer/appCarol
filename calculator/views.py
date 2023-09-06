@@ -3,8 +3,8 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views import View
-from .forms import createNewItemForm, CreateNewMarketForm
-from .models import MarketCreatedModel, ItemCreatedModel
+from .forms import createNewItemForm, CreateNewMarketForm, WageForm
+from .models import MarketCreatedModel, ItemCreatedModel, UserProfileModel
 
 # Create your views here.
 
@@ -95,6 +95,35 @@ class CreateItemView(View):
             return render(request, self.template_name, context)
 
 
-@login_required
-def myWagePageView(request):
-    return render(request, 'wageHour.html')
+@method_decorator(login_required, name='dispatch')
+class myWagePageView(View):
+    template_name = 'wageHour.html'
+    form_class = WageForm
+
+    def get_context_data(self, **kwargs):
+        user_wage = UserProfileModel.objects.get(user=self.request.user).wage
+        context = { 'wage': user_wage }
+        return context
+    
+    def get(self, request, *args, **kwargs):
+        user_profile = UserProfileModel.objects.get(user=request.user)
+        initial_data = {'wage': user_profile.wage}
+        form = self.form_class(initial=initial_data)
+        context = self.get_context_data()
+        context['form'] = form
+        return render(request, self.template_name, context=context)
+    
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        user_profile = UserProfileModel.objects.get(user=request.user)
+    
+        if form.is_valid():
+            item = form.save(commit=False)
+            user_profile.wage = item.wage
+            user_profile.save()
+            messages.success(request, 'Wage updated successfully!')
+            return redirect('mywage_page')
+
+        context = self.get_context_data()
+        context['form'] = form
+        return render(request, self.template_name, context=context)

@@ -1,5 +1,5 @@
 from django import forms
-from .models import ItemCreatedModel, MarketCreatedModel
+from .models import ItemCreatedModel, MarketCreatedModel, UserProfileModel
 
 
 class createNewItemForm(forms.ModelForm):
@@ -23,3 +23,13 @@ class CreateNewMarketForm(forms.ModelForm):
     class Meta:
         model = MarketCreatedModel
         fields = ['name', 'distance', 'favorite']
+
+
+class WageForm(forms.ModelForm):
+    class Meta:
+        model = UserProfileModel
+        fields = ['wage']
+        
+        labels = {
+            'wage': 'What\'s your hourly wage?',
+        }
