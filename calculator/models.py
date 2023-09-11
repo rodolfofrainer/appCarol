@@ -21,7 +21,7 @@ class MarketCreatedModel(models.Model):
 class ItemCreatedModel(models.Model):
     name = models.CharField(max_length=100, null=True)
     price = models.FloatField(null=True)
-    market_id = models.ForeignKey(MarketCreatedModel, on_delete=models.CASCADE)
+    market_id = models.ForeignKey(MarketCreatedModel, on_delete=models.CASCADE, related_name='items')
     
     def __str__(self):
         return f'{self.name}'

@@ -1,42 +1,44 @@
 {% extends "base.html" %}
-{% block title %}|Home Page{% endblock title %}
+{% block title %}
+    |Home Page
+{% endblock title %}
 {% block content %}
-
-{% if messages %}
-    <div class='container'>
-        {% for message in messages %}
-        <div class='alert alert-{{ message.tags }} mt-2'>
-            {{ message }}
-        </div>
-        {% endfor %}
-    </ul>
+    {% if messages %}
+        <div class='container'>
+            {% for message in messages %}<div class='alert alert-{{ message.tags }} mt-2'>{{ message }}</div>{% endfor %}
+        </ul>
     {% endif %}
-<div class="container mt-5">
-    <div class="row justify-content-center">
-      <div class="col-sm text-center">
-        <a href={% url 'market_page' %}>
-          <button type="button" class="btn btn-primary btn-lg"><h4>Market</h4></button>
-        </a>
-      </div>
-      <div class="col-sm text-center">
-        <a href={% url 'create_item' %}>
-          <button type="button" class="btn btn-primary btn-lg"><h4>Item & Price</h4></button>
-        </a>
-      </div>
-      <div class="col-sm text-center">
-        <a href={% url 'mywage_page' %}>
-          <button type="button" class="btn btn-primary btn-lg"><h4>Wage / hour</h4></button>
-        </a>
-      </div>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-sm text-center">
+                <a href={% url 'market_page' %}>
+                    <button type="button" class="btn btn-primary btn-lg">
+                        <h4>Market</h4>
+                    </button>
+                </a>
+            </div>
+            <div class="col-sm text-center">
+                <a href={% url 'create_item' %}>
+                    <button type="button" class="btn btn-primary btn-lg">
+                        <h4>Item & Price</h4>
+                    </button>
+                </a>
+            </div>
+            <div class="col-sm text-center">
+                <a href={% url 'mywage_page' %}>
+                    <button type="button" class="btn btn-primary btn-lg">
+                        <h4>Wage / hour</h4>
+                    </button>
+                </a>
+            </div>
+        </div>
     </div>
-  </div>
-
-  <div class="container bg-light mt-2 p-2 border rounded">
-      <div class="row">
-          <div class="col-sm text-center ">
-              <h1 class="text-dark">Purchase List</h1>
-          </div>
-      </div>
+    <div class="container bg-light mt-2 p-2 border rounded">
+        <div class="row">
+            <div class="col-sm text-center ">
+                <h1 class="text-dark">Purchase List</h1>
+            </div>
+        </div>
         <form>
             {% csrf_token %}
             <div class="form-row">
@@ -46,27 +48,29 @@
                         <option value="1">One</option>
                         <option value="2">Two</option>
                         <option value="3">Three</option>
-                    </select>                  
+                    </select>
                 </div>
                 <div class="col-md-2 form-outline">
-                  <input type="number" id="typeNumber" class="form-control" min='0' value='1'/>
+                    <input type="number" id="typeNumber" class="form-control" min='0' value='1' />
                 </div>
                 <div class="col-md-1">
                     <button class='btn' href="#">
                         <i class="fa-solid fa-xmark"></i>
-                    </button> 
-              </div>
+                    </button>
+                </div>
             </div>
         </form>
-      </div>
-  </div>
-
-  <div class="container">
+    </div>
+</div>
+<div class="container">
     <div class="row justify-content-center mt-2">
-        <div class="col-md-3 text-center"><a href={% url 'comparison_page'%}>
-            <button type="button" class="btn btn-success p-3"><h2>Compare</h2></button>
-        </a>
+        <div class="col-md-3 text-center">
+            <a href={% url 'comparison_page' %}>
+                <button type="button" class="btn btn-success p-3">
+                    <h2>Compare</h2>
+                </button>
+            </a>
         </div>
     </div>
-  </div>
-  {% endblock %}
+</div>
+{% endblock %}

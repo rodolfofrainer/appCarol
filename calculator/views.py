@@ -56,22 +56,22 @@ def comparisonPageView(request):
 class CreateItemView(View):
     template_name = 'itemCreation.html'
     form_class = createNewItemForm
+    context = {}
 
     def get_context_data(self, **kwargs):
-        context = {}
+        list_of_markets = []
+        list_of_items = {}
         try:
             list_of_markets = MarketCreatedModel.objects.filter(
                 user_id=self.request.user.id)
-            list_of_items = ItemCreatedModel.objects.filter(
-                market_id=list_of_markets[0].id)
+            for index, market in enumerate(list_of_markets):
+                list_of_items[market.name] = ItemCreatedModel.objects.filter(
+                    market_id=list_of_markets[index].id)
         except IndexError:
-            list_of_markets = []
-            list_of_items = []
-        context.update({
-            'list_of_markets': list_of_markets,
-            'list_of_items': list_of_items,
-        })
-        return context
+            pass
+        self.context['list_of_markets'] = list_of_markets
+        self.context['list_of_items'] = list_of_items
+        return self.context
 
     def get(self, request, *args, **kwargs):
         form = self.form_class(request.user, initial={'price': 0.00})

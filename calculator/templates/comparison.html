@@ -1,125 +1,135 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
-{% block title %}|Create a new item{% endblock title %}
+{% block title %}
+    |Create a new item
+{% endblock title %}
 {% block content %}
     {% if messages %}
-      <div class='container'>
-            {% for message in messages %}
-                <div class='alert alert-{{ message.tags }} mt-2'>
-                    {{ message }}
-                </div>
-            {% endfor %}
-      </div>
+        <div class='container'>
+            {% for message in messages %}<div class='alert alert-{{ message.tags }} mt-2'>{{ message }}</div>{% endfor %}
+        </div>
     {% endif %}
     <div class="container mt-5">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
             <div class="col">
                 <table class="table">
                     <thead class="thead-dark">
-                    <p class="text-center"><label for="itemListMarket">Market: Aldi</label></p>
-                      <tr>
-                        <th scope="col">Item</th>
-                        <th scope="col">Price</th>
-                      </tr>
+                        <p class="text-center">
+                            <label for="itemListMarket">Market: Aldi</label>
+                        </p>
+                        <tr>
+                            <th scope="col">Item</th>
+                            <th scope="col">Price</th>
+                        </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <th scope="row">Eggs</th>
-                        <td>3.85</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">Oil</th>
-                        <td>0.79</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">Kiwi</th>
-                        <td>0.59</td>
-                      </tr>
+                        <tr>
+                            <th scope="row">Eggs</th>
+                            <td>3.85</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Oil</th>
+                            <td>0.79</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Kiwi</th>
+                            <td>0.59</td>
+                        </tr>
                     </tbody>
-                  </table>
+                </table>
             </div>
             <div class="col">
                 <table class="table">
                     <thead class="thead-dark">
-                    <p class="text-center"><label for="itemListMarket">Market: Aldi</label></p>
-                      <tr>
-                        <th scope="col">Item</th>
-                        <th scope="col">Price</th>
-                      </tr>
+                        <p class="text-center">
+                            <label for="itemListMarket">Market: Aldi</label>
+                        </p>
+                        <tr>
+                            <th scope="col">Item</th>
+                            <th scope="col">Price</th>
+                        </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <th scope="row">Eggs</th>
-                        <td>3.85</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">Oil</th>
-                        <td>0.79</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">Kiwi</th>
-                        <td>0.59</td>
-                      </tr>
+                        <tr>
+                            <th scope="row">Eggs</th>
+                            <td>3.85</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Oil</th>
+                            <td>0.79</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Kiwi</th>
+                            <td>0.59</td>
+                        </tr>
                     </tbody>
-                  </table>
-                  <div class="alert alert-dark" role="alert">
-                    <p class="text-center"><strong>Total: €</strong></p>
+                </table>
+                <div class="alert alert-dark" role="alert">
+                    <p class="text-center">
+                        <strong>Total: €</strong>
+                    </p>
                     <p>% less expensive than buy everithing in Start market.</p>
-                  </div>
+                </div>
             </div>
             <div class="col">
                 <table class="table">
                     <thead class="thead-dark">
-                    <p class="text-center"><label for="itemListMarket">Market: Aldi</label></p>
-                      <tr>
-                        <th scope="col">Item</th>
-                        <th scope="col">Price</th>
-                      </tr>
+                        <p class="text-center">
+                            <label for="itemListMarket">Market: Aldi</label>
+                        </p>
+                        <tr>
+                            <th scope="col">Item</th>
+                            <th scope="col">Price</th>
+                        </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <th scope="row">Eggs</th>
-                        <td>3.85</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">Oil</th>
-                        <td>0.79</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">Kiwi</th>
-                        <td>0.59</td>
-                      </tr>
+                        <tr>
+                            <th scope="row">Eggs</th>
+                            <td>3.85</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Oil</th>
+                            <td>0.79</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Kiwi</th>
+                            <td>0.59</td>
+                        </tr>
                     </tbody>
-                  </table>
+                </table>
             </div>
             <div class="col">
                 <table class="table">
                     <thead class="thead bg-warning">
-                    <p class="text-center"><label for="itemListMarket">Start Market: Aldi</label></p>
-                      <tr>
-                        <th scope="col">Item</th>
-                        <th scope="col">Price</th>
-                      </tr>
+                        <p class="text-center">
+                            <label for="itemListMarket">Start Market: Aldi</label>
+                        </p>
+                        <tr>
+                            <th scope="col">Item</th>
+                            <th scope="col">Price</th>
+                        </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <th scope="row">Eggs</th>
-                        <td>3.85</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">Oil</th>
-                        <td>0.79</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">Kiwi</th>
-                        <td>0.59</td>
-                      </tr>
+                        <tr>
+                            <th scope="row">Eggs</th>
+                            <td>3.85</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Oil</th>
+                            <td>0.79</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Kiwi</th>
+                            <td>0.59</td>
+                        </tr>
                     </tbody>
-                  </table>
-                  <div class="alert alert-warning" role="alert">
-                    <p class="text-center"><strong>Total: €</strong></p>
-                  </div>
+                </table>
+                <div class="alert alert-warning" role="alert">
+                    <p class="text-center">
+                        <strong>Total: €</strong>
+                    </p>
+                </div>
             </div>
         </div>
     </div>
-    {% endblock content%}
+{% endblock content %}
