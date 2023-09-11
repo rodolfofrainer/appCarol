@@ -44,6 +44,9 @@ INSTALLED_APPS = [
     # Third party apps
         # Rest framework
     'rest_framework',
+        
+        #debug toolbar
+    "debug_toolbar",
     
         # Crispy forms
     'crispy_forms',
@@ -59,6 +62,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -161,3 +165,6 @@ CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 # Allauth
 LOGIN_REDIRECT_URL = 'home'
+
+# debug toolbar
+INTERNAL_IPS = ["127.0.0.1",]
