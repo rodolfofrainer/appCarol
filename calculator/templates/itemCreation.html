@@ -29,7 +29,7 @@
     <!--- Form *-->
     <div class="container mt-5">
         <div class="row">
-          <div class="col-md-12"
+          <div class="col-md-12">
             <form method="POST">
                 {% csrf_token %}
                 {{ form|crispy }}
@@ -49,47 +49,43 @@
     </div>
     <div class="row">
         {% for market in list_of_markets %}
-            <table class="table">
-                {% if not forloop.counter|divisibleby:2 %}
-                    <thead class="thead-dark">
-                        <label for="itemListMarket">
-                            <strong>Market: {{ market.name|title }}</strong>
-                        </label>
-                        <tr>
-                            <th scope="col">Item</th>
-                            <th scope="col">Price</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for item in market.items.all %}
-                            <tr>
-                                <th scope="row">{{ item.name }}</th>
-                                <td>{{ item.price|floatformat:2 }}</td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            {% else %}
-                <thead class="thead-light">
-                    <label for="itemListMarket">
-                        <strong>Market: {{ market.name|title }}</strong>
-                    </label>
-                    <tr>
-                        <th scope="col">Item</th>
-                        <th scope="col">Price</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for item in market.items.all %}
-                        <tr>
-                            <th scope="row">{{ item.name }}</th>
-                            <td>{{ item.price|floatformat:2 }}</td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        {% endif %}
-    {% endfor %}
+    <table class="table">
+        {% if not forloop.counter|divisibleby:2 %}
+        <thead class="thead-dark">
+            <label for="itemListMarket"><strong>Market: {{ market.name|title }}</strong></label>
+            <tr>
+                <th scope="col">Item</th>
+                <th scope="col">Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in market.items.all %}
+                <tr>
+                    <th scope="row">{{ item.name }}</th>
+                    <td>{{ item.price|floatformat:2 }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <thead class="thead-light">
+        <label for="itemListMarket"><strong>Market: {{ market.name|title }}</strong></label>
+        <tr>
+            <th scope="col">Item</th>
+            <th scope="col">Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in market.items.all %}
+            <tr>
+                <th scope="row">{{ item.name }}</th>
+                <td>{{ item.price|floatformat:2 }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+    {% endif %}
+{% endfor %}
 </tbody>
 </table>
 </div>

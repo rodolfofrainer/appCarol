@@ -90,6 +90,7 @@ class CreateItemView(View):
             messages.success(request, f'Item created successfully!')
             return redirect('create_item')
         else:
+            print('lol')
             context = self.get_context_data()
             context['form'] = form
             return render(request, self.template_name, context)
