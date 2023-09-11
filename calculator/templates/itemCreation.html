@@ -13,15 +13,16 @@
     {% endif %}
     <div class="container mt-5">
         <label for="itemSearch"><h4><strong>Item Search:</strong></h4></label>
-        <div class="input-group">
-            <input type="text" class="form-control" placeholder="type item name here" aria-label="Item name to be searched on Item database" aria-describedby="button-addon4">
-            <div class="input-group-append" id="button-addon4">
-                <button class="btn btn-primary" type="button">Search</button>
+        <form method='GET' action="{% url 'create_item' %}">
+          {% csrf_token %}
+          {{ filter|crispy }}
+          <input class="btn btn-primary" value="Submit" type="Submit"></button>
             </div>
         </div>
     </div>
     <!--- Form *-->
     <div class="container mt-5">
+      <h1>Item Creation</h1>
         <form method='POST'>
           {% csrf_token %}
             {{ form|crispy }}

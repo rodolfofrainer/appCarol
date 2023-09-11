@@ -5,6 +5,7 @@ from django.utils.decorators import method_decorator
 from django.views import View
 from .forms import createNewItemForm, CreateNewMarketForm, WageForm
 from .models import MarketCreatedModel, ItemCreatedModel, UserProfileModel
+from .filters import ItemCreatedFilter
 
 # Create your views here.
 
@@ -75,8 +76,11 @@ class CreateItemView(View):
 
     def get(self, request, *args, **kwargs):
         form = self.form_class(request.user, initial={'price': 0.00})
+        item_filter = ItemCreatedFilter(request.GET, queryset=ItemCreatedModel.objects.all())
         context = self.get_context_data()
         context['form'] = form
+        context['filter'] = item_filter.form
+        context['list_of_items'] = item_filter.qs
         return render(request, self.template_name, context=context)
 
     def post(self, request, *args, **kwargs):
