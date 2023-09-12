@@ -20,7 +20,7 @@ class basePageView(View):
         for i in queryset:
             items_set.append(i.name)
         items_set = set(items_set)
-        self.context['items'] = items_set
+        self.context['items'] = sorted(list(items_set))
         return render(request, self.template_name, self.context)
 
 
