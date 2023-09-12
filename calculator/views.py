@@ -16,7 +16,11 @@ class basePageView(View):
     
     def get(self, request, **kwargs):
         queryset = ItemCreatedModel.objects.filter(market_id__user_id=request.user.id)
-        self.context['items']=queryset
+        items_set = []
+        for i in queryset:
+            items_set.append(i.name)
+        items_set = set(items_set)
+        self.context['items'] = items_set
         return render(request, self.template_name, self.context)
 
 
