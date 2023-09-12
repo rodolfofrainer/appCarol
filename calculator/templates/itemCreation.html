@@ -73,19 +73,19 @@
                 <thead class="thead-light">
                     <label for="itemListMarket">
                         <strong>Market: {{ market.name|title }}</strong>
-                    </label>
-                    <tr>
-                        <th scope="col">Item</th>
-                        <th scope="col">Price</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for item in market.items.all %}
+                        </label>
                         <tr>
-                            <th scope="row">{{ item.name }}</th>
-                            <td>{{ item.price }}</td>
+                            <th scope="col">Item</th>
+                            <th scope="col">Price</th>
                         </tr>
-                    {% endfor %}
+                    </thead>
+                    <tbody>
+                        {% for item in market.items.all %}
+                            <tr>
+                                <th scope="row">{{ item.name }}</th>
+                                <td>{{ item.price}}</td>
+                            </tr>
+                        {% endfor %}
                 </tbody>
             </table>
         {% endif %}

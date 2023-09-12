@@ -1,8 +1,9 @@
-from django.shortcuts import render, redirect
-from django.contrib import messages
-from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
 from django.views import View
+from django.contrib import messages
+from django.shortcuts import render, redirect
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
+
 from .forms import CreateNewItemForm, CreateNewMarketForm, WageForm
 from .models import MarketCreatedModel, ItemCreatedModel, UserProfileModel
 
@@ -11,9 +12,12 @@ from .models import MarketCreatedModel, ItemCreatedModel, UserProfileModel
 
 class basePageView(View):
     template_name = 'home.html'
+    context = {}
     
     def get(self, request, **kwargs):
-        return render(request, self.template_name)
+        queryset = ItemCreatedModel.objects.filter(market_id__user_id=request.user.id)
+        self.context['items']=queryset
+        return render(request, self.template_name, self.context)
 
 
 @method_decorator(login_required, name='dispatch')
@@ -67,9 +71,9 @@ class CreateItemView(View):
         try:
             list_of_markets = MarketCreatedModel.objects.filter(
                 user_id=self.request.user.id)
-            for index, market in enumerate(list_of_markets):
+            for market in list_of_markets:
                 list_of_items[market.name] = ItemCreatedModel.objects.filter(
-                    market_id=list_of_markets[index].id)
+                    market_id=list_of_markets[market.id])
         except IndexError:
             pass
         self.context['list_of_markets'] = list_of_markets
