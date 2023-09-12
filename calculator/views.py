@@ -9,8 +9,11 @@ from .models import MarketCreatedModel, ItemCreatedModel, UserProfileModel
 # Create your views here.
 
 
-def baseView(request):
-    return render(request, 'home.html')
+class basePageView(View):
+    template_name = 'home.html'
+    
+    def get(self, request, **kwargs):
+        return render(request, self.template_name)
 
 
 @method_decorator(login_required, name='dispatch')
