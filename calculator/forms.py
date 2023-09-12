@@ -24,6 +24,9 @@ class CreateNewMarketForm(forms.ModelForm):
     class Meta:
         model = MarketCreatedModel
         fields = ['name', 'distance', 'favorite']
+        labels = {
+            'distance': 'Distance in minutes',
+        }
 
 
 class WageForm(forms.ModelForm):
