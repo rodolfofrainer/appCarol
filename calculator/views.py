@@ -26,9 +26,7 @@ class MarketPageView(View):
     form_class = CreateNewMarketForm
 
     def get_context_data(self, **kwargs):
-        context = {
-            'form': self.form_class(),
-        }
+        context = {'form': self.form_class(),}
         context['list_of_markets'] = MarketCreatedModel.objects.filter(
                 user_id=self.request.user.id)
         return context
