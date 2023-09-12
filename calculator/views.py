@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views import View
-from .forms import createNewItemForm, CreateNewMarketForm, WageForm
+from .forms import CreateNewItemForm, CreateNewMarketForm, WageForm
 from .models import MarketCreatedModel, ItemCreatedModel, UserProfileModel
 
 # Create your views here.
@@ -55,7 +55,7 @@ def comparisonPageView(request):
 @method_decorator(login_required, name='dispatch')
 class CreateItemView(View):
     template_name = 'itemCreation.html'
-    form_class = createNewItemForm
+    form_class = CreateNewItemForm
     context = {}
 
     def get_context_data(self, **kwargs):
@@ -70,7 +70,7 @@ class CreateItemView(View):
         except IndexError:
             pass
         self.context['list_of_markets'] = list_of_markets
-        self.context['list_of_items'] = list_of_items
+
         return self.context
 
     def get(self, request, *args, **kwargs):

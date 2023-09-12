@@ -1,8 +1,9 @@
 from django import forms
+from decimal import Decimal
 from .models import ItemCreatedModel, MarketCreatedModel, UserProfileModel
 
 
-class createNewItemForm(forms.ModelForm):
+class CreateNewItemForm(forms.ModelForm):
     class Meta:
         model = ItemCreatedModel
         fields = ('name', 'price', 'market_id')
@@ -13,10 +14,10 @@ class createNewItemForm(forms.ModelForm):
         }
 
     def __init__(self, user, *args, **kwargs):
-        super(createNewItemForm, self).__init__(*args, **kwargs)
+        super(CreateNewItemForm, self).__init__(*args, **kwargs)
         self.fields['market_id'].queryset = MarketCreatedModel.objects.filter(
             user_id=user.id)
-        self.fields['price'].widget.attrs['min'] = 0
+        self.fields['price'].widget.attrs['min'] = Decimal('0.00')
 
 
 class CreateNewMarketForm(forms.ModelForm):
