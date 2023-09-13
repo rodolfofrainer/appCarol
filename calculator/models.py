@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+
 
 # Create your models here.
 class UserProfileModel(models.Model):
@@ -25,3 +27,8 @@ class ItemCreatedModel(models.Model):
     
     def __str__(self):
         return f'{self.name}'
+
+from .signals import create_user_profile, save_user_profile
+#signals handler
+post_save.connect(create_user_profile, sender=User)
+post_save.connect(save_user_profile, sender=User)
