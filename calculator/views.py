@@ -54,6 +54,17 @@ class MarketPageView(View):
             context['form'] = form
             return render(request, self.template_name, context)
     
+    def favorite_market(self, pk):
+        market = MarketCreatedModel.objects.get(pk=pk)
+        market.favorite = True
+        market.save()
+        return redirect('market_page')
+    def unfavorite_market(self, pk):
+        market = MarketCreatedModel.objects.get(pk=pk)
+        market.favorite = True
+        market.save()
+        return redirect('market_page')
+    
 
 
 @login_required

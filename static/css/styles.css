@@ -1,0 +1,17 @@
+/* Yellow star button */
+.custom-btn.custom-btn-yellow a {
+    color: rgb(255,215,0)
+}
+
+.custom-btn.custom-btn-yellow a i {
+    color: rgb(255,215,0)
+}
+
+/* Black star button */
+.custom-btn.custom-btn-black a {
+    color: black;
+}
+
+.custom-btn.custom-btn-black a i {
+    color: black;
+}
