@@ -26,7 +26,7 @@ class basePageView(View):
 
 @method_decorator(login_required, name='dispatch')
 class MarketPageView(View):
-    template_name = 'market.html'
+    template_name = 'marketCreation.html'
     form_class = CreateNewMarketForm
 
     def get_context_data(self, **kwargs):
