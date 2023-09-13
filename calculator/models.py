@@ -14,7 +14,7 @@ class UserProfileModel(models.Model):
 class MarketCreatedModel(models.Model):
     name = models.CharField(max_length=100, null=True)
     distance = models.PositiveIntegerField(null=True)
-    favorite = models.BooleanField(null=True, unique=True)
+    favorite = models.BooleanField(null=True, default= False)
     user_id = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
     
     def __str__(self):
