@@ -18,4 +18,4 @@ def save_user_profile(sender, instance, **kwargs):
 def ensure_single_favorite(sender, instance, **kwargs):
     if instance.favorite:
         # Set all other markets as not favorite
-        sender.objects.filter(user=instance.user).exclude(pk=instance.pk).update(favorite=False)
+        sender.objects.filter(user_id=instance.user_id).exclude(pk=instance.pk).update(favorite=False)
