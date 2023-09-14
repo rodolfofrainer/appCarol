@@ -29,6 +29,12 @@ class ORM_Create_update_delete_test(TestCase):
         self.assertIsNotNone(self.user)
         self.assertIsNotNone(self.market)
         self.assertIsNotNone(self.item)
+    
+    def test_market_favorite(self):
+        #if market can be favorited
+        self.market.favorite = True
+        self.market.save()
+        self.assertEqual(self.market.favorite, True)
 
     
 
