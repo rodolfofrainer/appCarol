@@ -1,20 +1,19 @@
-import random, string
+import random
+import string
 import factory
-from . models import UserProfileModel, MarketCreatedModel, ItemCreatedModel
+from faker import Faker
+from .models import UserProfileModel, MarketCreatedModel, ItemCreatedModel
 from django.contrib.auth.models import User
 
-def random_password():
-    length = random.randint(1, 32)
-    characters = string.ascii_letters + string.digits + string.punctuation
-    return ''.join(random.choice(characters) for _ in range(length))
+fake = Faker()
 
 class UserFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = User
     
-    username = factory.Faker('username')
+    username = factory.Faker('user_name')
     email = factory.Faker('email')
-    password = factory.LazyFunction(random_password)
+    password = factory.Faker('password')
 
 class UserProfileFactory(factory.django.DjangoModelFactory):
     class Meta:
@@ -30,7 +29,7 @@ class MarketCreatedFactory(factory.django.DjangoModelFactory):
     name=factory.Faker('company')
     distance=factory.Faker('pyint', min_value=1, max_value=100)
     favorite=factory.Faker('boolean')
-    user_id=factory.SubFactory(UserFactory)
+    user_id=factory.SubFactory(UserProfileFactory)
 
 class ItemCreatedFactory(factory.django.DjangoModelFactory):
     class Meta:
