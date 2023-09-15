@@ -39,21 +39,22 @@
                 <h1 class="text-dark">Purchase List</h1>
             </div>
         </div>
-        <form>
+        <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="form-row">
                 <div class="col-md-9">
-                    <select class="custom-select" id="inputGroupSelect01">
-                        {% for item in items %}
-                        <option>{{item|title}}</option>
+                    <select name="{{ form.item.name }}" class="custom-select">
+                        <option value="" disabled selected>Select an item</option>
+                        {% for item in items_list %}
+                            <option value="{{ item }}">{{ item|title }}</option>
                         {% endfor %}
                     </select>
                 </div>
                 <div class="col-md-2 form-outline">
-                    <input type="number" id="typeNumber" class="form-control" min='0' value='1' />
+                    <input type="number" name="{{ form.amount.name }}" class="form-control" min="0" value="1">
                 </div>
                 <div class="col-md-1">
-                    <button class='btn' href="#">
+                    <button class="btn" type="submit">
                         <i class="fa-solid fa-xmark"></i>
                     </button>
                 </div>

@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 
-from .forms import CreateNewItemForm, CreateNewMarketForm, WageForm
+from .forms import CreateNewItemForm, CreateNewMarketForm, WageForm, ItemsCalculateForm
 from .models import MarketCreatedModel, ItemCreatedModel, UserProfileModel
 
 # Create your views here.
@@ -12,16 +12,27 @@ from .models import MarketCreatedModel, ItemCreatedModel, UserProfileModel
 
 class basePageView(View):
     template_name = 'home.html'
-    context = {}
-    
+
+    def get_context_data(self, **kwargs):
+        context = {'form': ItemsCalculateForm(request=self.request)}
+        
+        queryset = ItemCreatedModel.objects.filter(market_id__user_id=self.request.user.id)
+        items_set = set()
+        for item in queryset:
+            items_set.add(item.name)
+
+        items_list = sorted(list(items_set))
+
+        if len(items_list) < 1:
+            items_list = []
+
+        context['items_list'] = items_list
+
+        return context
+
     def get(self, request, **kwargs):
-        queryset = ItemCreatedModel.objects.filter(market_id__user_id=request.user.id)
-        items_set = []
-        for i in queryset:
-            items_set.append(i.name)
-        items_set = set(items_set)
-        self.context['items'] = sorted(list(items_set))
-        return render(request, self.template_name, self.context)
+        context = self.get_context_data()
+        return render(request, self.template_name, context)
 
 
 @method_decorator(login_required, name='dispatch')
