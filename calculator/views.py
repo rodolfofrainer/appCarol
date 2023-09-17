@@ -92,7 +92,7 @@ class CreateItemView(View):
     def get_context_data(self, **kwargs):
         list_of_markets = {}
         try:
-            qs = list(ItemCreatedModel.objects.filter(market_id__user_id=self.request.user.id))
+            qs = ItemCreatedModel.objects.filter(market_id__user_id=self.request.user.id).order_by('market_id__name', 'name')
             for i in qs:
                 list_of_markets[i.market_id] = i
         except IndexError:
@@ -113,6 +113,7 @@ class CreateItemView(View):
             user_id=request.user.id)
         if form.is_valid():
             item = form.save(commit=False)
+            item.name = item.name.lower()
             item.user_id = request.user.id
             item.save()
             messages.success(request, f'Item created successfully!')

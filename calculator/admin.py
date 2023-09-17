@@ -6,7 +6,8 @@ class UserProfileAdmin(admin.ModelAdmin):
     list_display = ["user", "wage"]
 
 class MarketCreatedAdmin(admin.ModelAdmin):
-    list_display = ["name", "distance", "favorite", "user_id"]
+    list_display = ["name", "user_id", "distance", "favorite"]
+    list_filter = ["user_id", "favorite"]
     
 
 class ItemCreatedAdmin(admin.ModelAdmin):

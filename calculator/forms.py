@@ -16,7 +16,7 @@ class CreateNewItemForm(forms.ModelForm):
     def __init__(self, user, *args, **kwargs):
         super(CreateNewItemForm, self).__init__(*args, **kwargs)
         self.fields['market_id'].queryset = MarketCreatedModel.objects.filter(
-            user_id=user.id)
+            user_id=user.id).order_by('name')
         self.fields['price'].widget.attrs['min'] = Decimal('0.00')
 
 
@@ -39,7 +39,7 @@ class WageForm(forms.ModelForm):
         }
 
 class ItemsCalculateForm(forms.Form):
-    item = forms.ChoiceField(choices=[])  # Initialize with empty choices
+    item = forms.ChoiceField(choices=[])
     amount = forms.IntegerField(min_value=1)
 
     def __init__(self, *args, **kwargs):

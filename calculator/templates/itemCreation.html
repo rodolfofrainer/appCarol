@@ -64,7 +64,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for item in market.items.all %}
+                        {% for item in market.items.all|dictsort:"name" %}
                             <tr>
                                 <th scope="row">{{ item.name|title }}</th>
                                 <td>{{ item.price }}</td>
