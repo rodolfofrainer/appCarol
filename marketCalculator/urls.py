@@ -17,6 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+#admin page Header
+admin.site.site_header='Admin Page'
+admin.site.index_title='Db tables'
+
 urlpatterns = [
     #thid party urls
     path('accounts/', include('allauth.urls')),
