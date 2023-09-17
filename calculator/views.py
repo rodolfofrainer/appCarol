@@ -90,14 +90,11 @@ class CreateItemView(View):
     context = {}
 
     def get_context_data(self, **kwargs):
-        list_of_markets = []
-        list_of_items = {}
+        list_of_markets = {}
         try:
-            list_of_markets = MarketCreatedModel.objects.filter(
-                user_id=self.request.user.id)
-            for market in list_of_markets:
-                list_of_items[market.name] = ItemCreatedModel.objects.filter(
-                    market_id=list_of_markets[market.id])
+            qs = list(ItemCreatedModel.objects.filter(market_id__user_id=self.request.user.id))
+            for i in qs:
+                list_of_markets[i.market_id] = i
         except IndexError:
             pass
         self.context['list_of_markets'] = list_of_markets
