@@ -90,15 +90,13 @@ class CreateItemView(View):
     context = {}
 
     def get_context_data(self, **kwargs):
-        list_of_markets = {}
         try:
-            qs = ItemCreatedModel.objects.filter(market_id__user_id=self.request.user.id).order_by('market_id__name', 'name')
-            for i in qs:
-                list_of_markets[i.market_id] = i
+            qs = ItemCreatedModel.objects.filter(market_id__user_id=self.request.user.id).select_related('market_id')
+            list_of_markets = {i.market_id: i for i in qs}
         except IndexError:
-            pass
+            list_of_markets = {}
+        
         self.context['list_of_markets'] = list_of_markets
-
         return self.context
 
     def get(self, request, *args, **kwargs):
