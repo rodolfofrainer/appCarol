@@ -170,3 +170,8 @@ LOGIN_REDIRECT_URL = 'home'
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
+
+# RestFrameWork
+REST_FRAMEWORK={
+    'COERCE_DECIMAL_TO_STRING': False
+}

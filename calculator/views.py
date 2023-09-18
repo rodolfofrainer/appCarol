@@ -1,13 +1,16 @@
 from django.views import View
 from django.contrib import messages
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 
+from rest_framework import status
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+
 from .forms import CreateNewItemForm, CreateNewMarketForm, WageForm, ItemsCalculateForm
 from .models import MarketCreatedModel, ItemCreatedModel, UserProfileModel
-
-# Create your views here.
+from .serializers import ItemsSerializer
 
 
 class basePageView(View):
@@ -156,3 +159,16 @@ class myWagePageView(View):
         context = self.get_context_data()
         context['form'] = form
         return render(request, self.template_name, context=context)
+
+class ProductListView(View):
+    @api_view()  
+    def displayAllItems(self):
+        queryset = ItemCreatedModel.objects.filter(market_id__user_id=self.user.id)
+        serializer = ItemsSerializer(queryset, many=True)
+        return Response(serializer.data)
+    
+    @api_view()  
+    def displayItem(self, pk):
+            product = get_object_or_404(ItemCreatedModel, pk=pk)
+            serializer = ItemsSerializer(product)
+            return Response(serializer.data)
