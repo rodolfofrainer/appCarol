@@ -161,14 +161,21 @@ class myWagePageView(View):
         return render(request, self.template_name, context=context)
 
 class ProductListView(View):
-    @api_view()  
-    def displayAllItems(self):
-        queryset = ItemCreatedModel.objects.filter(market_id__user_id=self.user.id)
+    @api_view(['GET'])
+    def display_all_items(request):
+        queryset = ItemCreatedModel.objects.filter(market_id__user_id=request.user.id)
         serializer = ItemsSerializer(queryset, many=True)
         return Response(serializer.data)
     
-    @api_view()  
-    def displayItem(self, pk):
+    @api_view(['GET','POST'])  
+    def display_item(self, pk):
+        if self.method == 'GET':
             product = get_object_or_404(ItemCreatedModel, pk=pk)
             serializer = ItemsSerializer(product)
             return Response(serializer.data)
+        elif self.method == 'POST':
+            serializer = ItemsSerializer(data=self.data)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+            return Response('ok')
+            
