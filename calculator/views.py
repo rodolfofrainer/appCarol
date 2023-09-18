@@ -167,15 +167,24 @@ class ProductListView(View):
         serializer = ItemsSerializer(queryset, many=True)
         return Response(serializer.data)
     
-    @api_view(['GET','POST'])  
+    @api_view(['GET','POST', 'PUT', 'DELETE'])  
     def display_item(self, pk):
+        product = get_object_or_404(ItemCreatedModel, pk=pk)
         if self.method == 'GET':
-            product = get_object_or_404(ItemCreatedModel, pk=pk)
             serializer = ItemsSerializer(product)
             return Response(serializer.data)
         elif self.method == 'POST':
             serializer = ItemsSerializer(data=self.data)
             serializer.is_valid(raise_exception=True)
             serializer.save()
-            return Response('ok')
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        elif self.method == 'PUT':
+            serializer = ItemsSerializer(product, data=self.data)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        elif self.method == 'DELETE':
+            product.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+            
             

@@ -5,7 +5,7 @@ from calculator.models import ItemCreatedModel
 class ItemsSerializer(serializers.ModelSerializer):
     class Meta:
         model = ItemCreatedModel
-        fields = ['pk', 'name', 'price', 'market_name']
+        fields = ['pk', 'name', 'price', 'market_name', 'market_id']
     
     market_name = serializers.SerializerMethodField(method_name='get_market_name')
     
