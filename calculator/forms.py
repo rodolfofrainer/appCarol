@@ -33,10 +33,11 @@ class WageForm(forms.ModelForm):
     class Meta:
         model = UserProfileModel
         fields = ['wage']
-        
+
         labels = {
             'wage': 'What\'s your hourly wage?',
         }
+
 
 class ItemsCalculateForm(forms.Form):
     item = forms.ChoiceField(choices=[])
@@ -47,7 +48,8 @@ class ItemsCalculateForm(forms.Form):
         super(ItemsCalculateForm, self).__init__(*args, **kwargs)
 
         if request:
-            queryset = ItemCreatedModel.objects.filter(market_id__user_id=request.user.id)
+            queryset = ItemCreatedModel.objects.filter(
+                market_id__user_id=request.user.id)
             items_set = set()
             for item in queryset:
                 items_set.add(item.name)

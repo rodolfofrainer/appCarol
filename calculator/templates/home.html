@@ -3,6 +3,8 @@
     |Home Page
 {% endblock title %}
 {% block content %}
+{% load static %}
+<script src="{% static 'js/script.js' %}"></script>
     {% if messages %}
         <div class='container'>
             {% for message in messages %}<div class='alert alert-{{ message.tags }} mt-2'>{{ message }}</div>{% endfor %}
@@ -43,7 +45,7 @@
             {% csrf_token %}
             <div class="form-row">
                 <div class="col-md-9">
-                    <select name="{{ form.item.name }}" class="custom-select">
+                    <select id="item-select" name="{{ form.item.name }}" class="custom-select">
                         <option value="" disabled selected>Select an item</option>
                         {% for item in items_list %}
                             <option value="{{ item }}">{{ item|title }}</option>
@@ -51,10 +53,11 @@
                     </select>
                 </div>
                 <div class="col-md-2 form-outline">
-                    <input type="number" name="{{ form.amount.name }}" class="form-control" min="0" value="1">
+                    <input type="number" id="quantity-input" name="{{ form.amount.name }}" class="form-control" min="0" value="1">
                 </div>
                 <div class="col-md-1">
-                    <button class="btn" type="submit">
+                    <button class="btn btn-primary" id="add-to-list"><i class="fa-solid fa-plus"></i></button>
+                    <button class="btn btn-danger" type="submit">
                         <i class="fa-solid fa-xmark"></i>
                     </button>
                 </div>
@@ -66,11 +69,15 @@
     <div class="row justify-content-center mt-2">
         <div class="col-md-3 text-center">
             <a href={% url 'comparison_page' %}>
-                <button type="button" class="btn btn-success p-3">
+                <button type="button" method="POST" class="btn btn-success p-3">
                     <h2>Compare</h2>
                 </button>
             </a>
         </div>
     </div>
+</div>
+<div id="shopping-list">
+    <h2>Shopping List</h2>
+    <ul id="list-items"></ul>
 </div>
 {% endblock %}

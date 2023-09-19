@@ -1,9 +1,7 @@
 from django.test import TestCase
 from django.contrib.auth.models import User
-from .models import MarketCreatedModel, ItemCreatedModel
 from .factories import UserFactory, MarketCreatedFactory, ItemCreatedFactory
 from faker import Faker
-import random
 
 fake = Faker()
 
@@ -11,7 +9,7 @@ fake = Faker()
 class ORM_Create_update_delete_test(TestCase):
     def setUp(self):
         self.user = UserFactory()
-        
+
         self.market = MarketCreatedFactory()
         self.market2 = MarketCreatedFactory()
         self.item = ItemCreatedFactory()
