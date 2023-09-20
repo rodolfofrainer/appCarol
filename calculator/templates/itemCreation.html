@@ -30,7 +30,7 @@
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-12">
-                <form method="POST">
+                <form method="post">
                     {% csrf_token %}
                     {{ form|crispy }}
                     <button class="btn btn-primary" type="submit" name='saveItem'>Add item</button>
@@ -40,13 +40,14 @@
         </div>
     </div>
     <!--- Item lists *-->
-    <div class="container mt-5">
+    <div class="container mt-2">
         <div class="row">
-            <h3>
-                <strong>Item list:</strong>
-            </h3>
-        </label>
-    </div>
+            <div class="col-md-2">
+                <h3>
+                    <strong>Item list:</strong>
+                </h3>
+            </div>
+        </div>
     <div class="row">
         {% for market in list_of_markets %}
             <table class="table">
@@ -59,19 +60,28 @@
                             <strong>Market: {{ market.name|title }}</strong>
                         </label>
                         <tr>
-                            <th scope="col">Item</th>
-                            <th scope="col">Price</th>
+                            <th class="col">Item</th>
+                            <th class="col">Price</th>
+                            <th class="col">Delete</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for item in market.market_id.all|dictsort:"name" %}
                             <tr>
-                                <th scope="row">{{ item.name|title }}</th>
+                                <td scope="row">{{ item.name|title }}</td>
                                 <td>{{ item.price }}</td>
+                                <td>
+                                    <a href="{% url 'delete_item_pk' pk=item.pk %}">
+                                <button class="btn btn-danger" type="submit">
+                                    <i class="fa-solid fa-xmark"></i>
+                                </button>
+                            </a>
+                            </td>
                             </tr>
                         {% endfor %}
                     </tbody>
                 </table>
             {% endfor %}
         </div>
+    </div>
     {% endblock content %}

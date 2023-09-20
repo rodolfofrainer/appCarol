@@ -112,7 +112,6 @@ class CreateItemView(View):
         form = self.form_class(request.user, initial={'price': 0.00})
         context = self.get_context_data()
         context['form'] = form
-        print(context['list_of_markets'])
         return render(request, self.template_name, context=context)
 
     def post(self, request, *args, **kwargs):
@@ -130,6 +129,11 @@ class CreateItemView(View):
             context = self.get_context_data()
             context['form'] = form
             return render(request, self.template_name, context)
+    
+    def delete_item(self, pk:int):
+        product = get_object_or_404(ItemCreatedModel, pk=pk)
+        product.delete()
+        return redirect('create_item')
 
 
 @method_decorator(login_required, name='dispatch')
@@ -164,6 +168,10 @@ class myWagePageView(View):
         context = self.get_context_data()
         context['form'] = form
         return render(request, self.template_name, context=context)
+
+    
+        
+        
 
 
 class ProductListView(View):

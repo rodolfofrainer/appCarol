@@ -11,6 +11,7 @@ urlpatterns = [
     path('createMarket/<int:pk>/unfavorite/',
          views.MarketPageView.unfavorite_market, name='unfavorite_market'),
     path('createItem/', views.CreateItemView.as_view(), name='create_item'),
+    path('createItem/delete/<int:pk>', views.CreateItemView.delete_item, name='delete_item_pk'),
     path('items/', views.ProductListView.display_all_items, name='display_items'),
     path('items/<int:pk>', views.ProductListView.display_item,
          name='display_single_item'),
