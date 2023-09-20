@@ -131,9 +131,14 @@ class CreateItemView(View):
             return render(request, self.template_name, context)
     
     def delete_item(self, pk:int):
-        product = get_object_or_404(ItemCreatedModel, pk=pk)
-        product.delete()
-        return redirect('create_item')
+        user_id = ItemCreatedModel.objects.filter(market_id__user_id = self.user.id)
+        if user_id:
+            product = get_object_or_404(ItemCreatedModel, pk=pk)
+            product.delete()
+            return redirect('create_item')
+        else:
+            messages.warning(self,'Something went wrong')
+            return redirect('home')
 
 
 @method_decorator(login_required, name='dispatch')
