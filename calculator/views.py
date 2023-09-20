@@ -56,6 +56,7 @@ class MarketPageView(View):
         form = self.form_class(initial={'distance': 0, 'favorite': 0})
         context = self.get_context_data()
         context['form'] = form
+
         return render(request, self.template_name, context=context)
 
     def post(self, request, *args, **kwargs):
@@ -111,6 +112,7 @@ class CreateItemView(View):
         form = self.form_class(request.user, initial={'price': 0.00})
         context = self.get_context_data()
         context['form'] = form
+        print(context['list_of_markets'])
         return render(request, self.template_name, context=context)
 
     def post(self, request, *args, **kwargs):

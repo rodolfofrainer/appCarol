@@ -33,7 +33,7 @@ class ItemCreatedModel(models.Model):
         decimal_places=2,
         validators=[MinValueValidator(0.01)])
     market_id = models.ForeignKey(
-        MarketCreatedModel, on_delete=models.CASCADE, related_name='items')
+        MarketCreatedModel, on_delete=models.CASCADE, related_name="market_id")
 
     def __str__(self):
         return f'{self.name}'
