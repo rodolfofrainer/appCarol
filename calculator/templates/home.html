@@ -3,8 +3,8 @@
     |Home Page
 {% endblock title %}
 {% block content %}
-{% load static %}
-<script src="{% static 'js/script.js' %}"></script>
+    {% load static %}
+    <script src="{% static 'js/homeScript.js' %}"></script>
     {% if messages %}
         <div class='container'>
             {% for message in messages %}<div class='alert alert-{{ message.tags }} mt-2'>{{ message }}</div>{% endfor %}
@@ -47,16 +47,21 @@
                 <div class="col-md-9">
                     <select id="item-select" name="{{ form.item.name }}" class="custom-select">
                         <option value="" disabled selected>Select an item</option>
-                        {% for item in items_list %}
-                            <option value="{{ item }}">{{ item|title }}</option>
-                        {% endfor %}
+                        {% for item in items_list %}<option id="item-name" value="{{ item }}">{{ item|title }}</option>{% endfor %}
                     </select>
                 </div>
                 <div class="col-md-2 form-outline">
-                    <input type="number" id="quantity-input" name="{{ form.amount.name }}" class="form-control" min="0" value="1">
+                    <input type="number"
+                           id="item-quantity"
+                           name="{{ form.amount.name }}"
+                           class="form-control"
+                           min="0"
+                           value="1">
                 </div>
                 <div class="col-md-1">
-                    <button class="btn btn-primary" id="add-to-list"><i class="fa-solid fa-plus"></i></button>
+                    <spam id="add-to-list" class="btn btn-primary">
+                        <i class="fa-solid fa-plus"></i>
+                    </spam>
                     <button class="btn btn-danger" type="submit">
                         <i class="fa-solid fa-xmark"></i>
                     </button>
@@ -69,15 +74,20 @@
     <div class="row justify-content-center mt-2">
         <div class="col-md-3 text-center">
             <a href={% url 'comparison_page' %}>
-                <button type="button" method="POST" class="btn btn-success p-3">
+                <button id="compare-button" type="button" method="POST" class="btn btn-success p-3">
                     <h2>Compare</h2>
                 </button>
             </a>
         </div>
     </div>
 </div>
-<div id="shopping-list">
-    <h2>Shopping List</h2>
-    <ul id="list-items"></ul>
+<div class="container" id="shopping-list">
+    <div class="row">
+        <div class="col">
+            <h2>Shopping List</h2>
+            <ul id="list-items">
+            </ul>
+        </div>
+    </div>
 </div>
 {% endblock %}
