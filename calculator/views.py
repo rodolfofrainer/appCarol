@@ -1,5 +1,6 @@
 from django.views import View
 from django.contrib import messages
+from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
@@ -8,12 +9,14 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
+import json
+
 from .forms import CreateNewItemForm, CreateNewMarketForm, WageForm, ItemsCalculateForm
 from .models import MarketCreatedModel, ItemCreatedModel, UserProfileModel
 from .serializers import ItemsSerializer
 
 
-class basePageView(View):
+class BasePageView(View):
     template_name = 'home.html'
 
     def get_context_data(self, **kwargs):
@@ -31,15 +34,71 @@ class basePageView(View):
             items_list = []
         context['items_list'] = items_list
         return context
+    
+    def get_items_list(self):
+        # Retrieve or calculate your items_list here
+        items_set = set()
+        queryset = ItemCreatedModel.objects.filter(
+            market_id__user_id=self.request.user.id)
+        for item in queryset:
+            items_set.add(item.name)
+        items_list = sorted(list(items_set))
+        if len(items_list) < 1:
+            items_list = []
+        print(items_list)
+        return items_list
 
+    def post(self, request, **kwargs):
+        items_list = self.get_items_list()
+        request.session['items_list'] = items_list
+        context = self.get_context_data()
+        return render(request, self.template_name, context)
+    
     def get(self, request, **kwargs):
         context = self.get_context_data()
         return render(request, self.template_name, context)
 
-    def post(self, request, **kwargs):
-        context = self.get_context_data()
-        return render(request, self.template_name, context)
+    
 
+
+@method_decorator(login_required, name='dispatch')
+class ComparisonPageView(View):
+    template_name = 'comparison.html'
+    
+    def get(self, request):
+        # Retrieve the items_list from the session
+        items_list = request.session.get('items_list', [])
+
+        # You can now use the items_list in your template or logic
+        context = {'items_list': items_list}
+        print(request.session.keys())
+        return render(request, self.template_name, context)
+    
+    def post(self, request):
+        if request.method == 'POST':
+            # Get the shopping list from the request
+            data = json.loads(request.body)
+            shopping_list = data.get('shoppingList', [])
+
+            # Perform calculations or processing with the shopping list
+            results = self.calculate_results(shopping_list)
+
+            # Return the results as JSON response
+            return JsonResponse({'results': results})
+        else:
+            return JsonResponse({'error': 'Invalid request method'})
+
+    def calculate_results(self, shopping_list):
+        # Perform calculations or processing with the shopping list
+        results = []
+
+        for item in shopping_list:
+            # Calculate something based on each item
+            # Append the result to the results list
+            result = f"Processed item: {item}"
+            results.append(result)
+
+        return results
 
 @method_decorator(login_required, name='dispatch')
 class MarketPageView(View):
@@ -83,11 +142,6 @@ class MarketPageView(View):
         market.favorite = True
         market.save()
         return redirect('market_page')
-
-
-@login_required
-def comparisonPageView(request):
-    return render(request, 'comparison.html')
 
 
 @method_decorator(login_required, name='dispatch')
@@ -173,10 +227,6 @@ class myWagePageView(View):
         context = self.get_context_data()
         context['form'] = form
         return render(request, self.template_name, context=context)
-
-    
-        
-        
 
 
 class ProductListView(View):

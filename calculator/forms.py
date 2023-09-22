@@ -59,5 +59,4 @@ class ItemsCalculateForm(forms.Form):
             if len(items_list) < 1:
                 items_list = []
 
-            print(items_list)
             self.fields['item'].choices = [item for item in items_list]
