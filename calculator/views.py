@@ -47,18 +47,16 @@ class BasePageView(View):
             items_list = []
         print(items_list)
         return items_list
+    
+    def get(self, request, **kwargs):
+        context = self.get_context_data()
+        return render(request, self.template_name, context)
 
     def post(self, request, **kwargs):
         items_list = self.get_items_list()
         request.session['items_list'] = items_list
         context = self.get_context_data()
         return render(request, self.template_name, context)
-    
-    def get(self, request, **kwargs):
-        context = self.get_context_data()
-        return render(request, self.template_name, context)
-
-    
 
 
 @method_decorator(login_required, name='dispatch')

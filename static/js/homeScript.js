@@ -19,16 +19,43 @@ document.addEventListener("DOMContentLoaded", function () {
 
     addButton.addEventListener("click", function () {
         const selectedItemText = itemNameSelect.options[itemNameSelect.selectedIndex].text;
-        const selectedItemQuantity = itemQuantityInput.value;
-        const newItemText = selectedItemText + " - " + selectedItemQuantity;
-
-        selectedItems.push(newItemText); // Add the selected item to the array
-        console.log(selectedItems); // Debug
-
-        const newItem = document.createElement("li");
-        newItem.textContent = newItemText;
-        itemsList.appendChild(newItem);
+        const selectedItemQuantity = parseInt(itemQuantityInput.value); // Parse quantity as an integer
+    
+        // Check if the selected item is not "Select an item"
+        if (selectedItemText !== "Select an item") {
+            // Check if the item already exists in the selectedItems array
+            const existingItemIndex = selectedItems.findIndex(item => item.startsWith(selectedItemText));
+    
+            if (existingItemIndex !== -1) {
+                // Item already exists, update its quantity
+                const existingItem = selectedItems[existingItemIndex];
+                const [, existingQuantity] = existingItem.split(" - ");
+                const newQuantity = parseInt(existingQuantity) + selectedItemQuantity;
+    
+                // Update the item in the array
+                selectedItems[existingItemIndex] = `${selectedItemText} - ${newQuantity}`;
+                
+                // Update the item in the list
+                const existingListItem = itemsList.children[existingItemIndex];
+                existingListItem.textContent = `${selectedItemText} - ${newQuantity}`;
+            } else {
+                // Item doesn't exist, add it to the array
+                const newItemText = `${selectedItemText} - ${selectedItemQuantity}`;
+                selectedItems.push(newItemText);
+    
+                const newItem = document.createElement("li");
+                newItem.textContent = newItemText;
+                itemsList.appendChild(newItem);
+            }
+    
+            console.log(selectedItems); // Debug
+        } else {
+            // Handle the case where "Select an item" is selected
+            // You can show an alert or perform any other action here
+            console.log("Please select a valid item.");
+        }
     });
+    
 
     compareButton.addEventListener("click", function () {
         const shoppingList = selectedItems; // Use the selectedItems array
